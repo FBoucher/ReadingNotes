@@ -25,3 +25,10 @@ In this version I want to control as much as possible. In V2 the original URL wa
 
 - Search engine to retrieve notes.
 - automatically publish once done.
+
+
+### Work in Progress
+
+[x] Azure Function wrapping Mercury services
+    [] ARM template to deploy the function
+     
