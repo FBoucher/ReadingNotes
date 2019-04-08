@@ -1,0 +1,19 @@
+{
+  "name": "httpmercuryparser",
+  "version": "0.0.1",
+  "description": "Wrapper arounf Mercury services",
+  "main": "index.js",
+  "scripts": {
+    "test": "\"echo \\\"Error: no test specified\\\" && exit 1d\""
+  },
+  "keywords": [
+    "azure",
+    "node",
+    "mercury"
+  ],
+  "author": "fboucher",
+  "license": "ISC",
+  "dependencies": {
+    "@postlight/mercury-parser": "^2.0.0"
+  }
+}
