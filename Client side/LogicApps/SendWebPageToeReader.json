@@ -1,0 +1,84 @@
+{
+    "$connections": {
+        "value": {
+            "onedrive": {
+                "connectionId": "": "onedrive",
+                "id": ""
+            }
+        }
+    },
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Create_file": {
+                "inputs": {
+                    "body": "@body('HttpMercuryParser')",
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['onedrive']['connectionId']"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/datasets/default/files",
+                    "queries": {
+                        "folderPath": "/dev/demo",
+                        "name": "test.json"
+                    }
+                },
+                "runAfter": {
+                    "HttpMercuryParser": [
+                        "Succeeded"
+                    ]
+                },
+                "runtimeConfiguration": {
+                    "contentTransfer": {
+                        "transferMode": "Chunked"
+                    }
+                },
+                "type": "ApiConnection"
+            },
+            "HttpMercuryParser": {
+                "inputs": {
+                    "body": {
+                        "url": "@{triggerOutputs()['queries']['postUrl']}"
+                    },
+                    "function": {
+                        "id": "/subscriptions/7996ab95-e0f1-497f-9ccf-9a7618d92842/resourceGroups/ToolsReadingNotes/providers/Microsoft.Web/sites/FcToolsReadingNotes/functions/HttpMercuryParser"
+                    }
+                },
+                "runAfter": {},
+                "type": "Function"
+            },
+            "Response": {
+                "inputs": {
+                    "statusCode": 200
+                },
+                "kind": "Http",
+                "runAfter": {
+                    "Create_file": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Response"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {
+            "$connections": {
+                "defaultValue": {},
+                "type": "Object"
+            }
+        },
+        "triggers": {
+            "manual": {
+                "inputs": {
+                    "method": "GET",
+                    "schema": {}
+                },
+                "kind": "Http",
+                "type": "Request"
+            }
+        }
+    }
+}

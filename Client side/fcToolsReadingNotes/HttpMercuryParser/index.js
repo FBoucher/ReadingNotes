@@ -6,7 +6,7 @@ module.exports = async function (context, req) {
     if (req.query.url || (req.body && req.body.url)) {
 
         const _url = (req.query.url || req.body.url);
-        await mercury.parse(_url).then(result => cleanedPost = result);
+        cleanedPost = await mercury.parse(_url);
 
         context.res = {
             status: 200, /* Defaults to 200 */

@@ -29,6 +29,17 @@ In this version I want to control as much as possible. In V2 the original URL wa
 
 ### Work in Progress
 
-[x] Azure Function wrapping Mercury services
+Azure Function(s)
+    [x] Azure Function wrapping Mercury services
     [] ARM template to deploy the function
+    [] Create an OpenAPI definition for a function
+[] Logic Apps
+    [x] Receive a URL as querystring parameters
+    [x] Call the WebParser, passing the URL
+    [] Generate a Word document
+    [] Save the info (json returned by webParser)
+[] ACI PanDoc
+[] Database
+    [x] Identify Database --> CosmoDB (mongoDB interface)
+
      
