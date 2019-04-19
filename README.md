@@ -17,10 +17,10 @@ In this version, we need to manage the entire flow. Meaning that all the informa
 
 The solution is in three parts: 
 
-1- Generating a e-book from an article online.
-   ![ReadingNotes-Before][ReadingNotes-Before]
-1- Generating the summary of the week reconciliation all notes read in one document.
-1- Interface to edit the summary.
+1. Generating a e-book from an article online.
+ ![ReadingNotes-Before][ReadingNotes-Before]
+1. Generating the summary of the week reconciliation all notes read in one document.
+1. Interface to edit the summary.
 
 **Optional**
 
