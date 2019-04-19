@@ -18,9 +18,12 @@ In this version, we need to manage the entire flow. Meaning that all the informa
 The solution is in three parts: 
 
 1. Generating a e-book from an article online.
- ![ReadingNotes-Before][ReadingNotes-Before]
-1. Generating the summary of the week reconciliation all notes read in one document.
-1. Interface to edit the summary.
+   
+   ![GettingPostToEReader][GettingPostToEReader]
+    
+    (schema from: [ReadingNotes_3-0](Draw_io/ReadingNotes_3-0.html))
+2. Generating the summary of the week reconciliation all notes read in one document.
+3. Interface to edit the summary.
 
 **Optional**
 
@@ -83,7 +86,7 @@ The solution is in three parts:
 - [ ] Publish
 
 
-☁️
 
-[ReadingNotes-Before]: "medias/ReadingNotes_3-0-Getting Post.png"
+
+[GettingPostToEReader]: medias/GettingPostToEReader.png 'Getting the post to the eReader'
      
