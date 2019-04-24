@@ -1,9 +1,15 @@
 {
     "$connections": {
         "value": {
+            "documentdb_1": {
+                "connectionId": "/subscriptions/7996ab95-e0f1-497f-9ccf-9a7618d92842/resourceGroups/FrankStreamDev/providers/Microsoft.Web/connections/documentdb-1",
+                "connectionName": "documentdb-1",
+                "id": "/subscriptions/7996ab95-e0f1-497f-9ccf-9a7618d92842/providers/Microsoft.Web/locations/eastus/managedApis/documentdb"
+            },
             "onedrive": {
-                "connectionId": "": "onedrive",
-                "id": ""
+                "connectionId": "/subscriptions/7996ab95-e0f1-497f-9ccf-9a7618d92842/resourceGroups/FrankStreamDev/providers/Microsoft.Web/connections/onedrive",
+                "connectionName": "onedrive",
+                "id": "/subscriptions/7996ab95-e0f1-497f-9ccf-9a7618d92842/providers/Microsoft.Web/locations/eastus/managedApis/onedrive"
             }
         }
     },
@@ -37,6 +43,44 @@
                 },
                 "type": "ApiConnection"
             },
+            "Create_or_update_document": {
+                "inputs": {
+                    "body": "@variables('postToRead')",
+                    "headers": {
+                        "x-ms-documentdb-raw-partitionkey": "\"@{variables('postToRead').domain}\""
+                    },
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['documentdb_1']['connectionId']"
+                        }
+                    },
+                    "method": "post",
+                    "path": "/dbs/@{encodeURIComponent('ReadingNotes')}/colls/@{encodeURIComponent('postToRead')}/docs"
+                },
+                "runAfter": {
+                    "Get_all_documents": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ApiConnection"
+            },
+            "Get_all_documents": {
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['documentdb_1']['connectionId']"
+                        }
+                    },
+                    "method": "get",
+                    "path": "/dbs/@{encodeURIComponent('ReadingNotes')}/colls/@{encodeURIComponent('postToRead')}/docs"
+                },
+                "runAfter": {
+                    "Initialize_variable": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "ApiConnection"
+            },
             "HttpMercuryParser": {
                 "inputs": {
                     "body": {
@@ -49,13 +93,31 @@
                 "runAfter": {},
                 "type": "Function"
             },
+            "Initialize_variable": {
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "postToRead",
+                            "type": "Object",
+                            "value": "@json(body('HttpMercuryParser'))"
+                        }
+                    ]
+                },
+                "runAfter": {
+                    "Create_file": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "InitializeVariable"
+            },
             "Response": {
                 "inputs": {
+                    "body": "@variables('postToRead')",
                     "statusCode": 200
                 },
                 "kind": "Http",
                 "runAfter": {
-                    "Create_file": [
+                    "Create_or_update_document": [
                         "Succeeded"
                     ]
                 },

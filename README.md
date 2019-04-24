@@ -47,6 +47,7 @@ The solution is in three parts:
    - [x] Receive a URL as querystring parameters
    - [ ] Azure Function(s)
       - [x] Azure Function wrapping Mercury services
+      - [x] Add a new property "id" with a GUID value
       - [ ] Create an OpenAPI definition for a function
    - [x] Call the WebParser, passing the URL
    - [ ] Generate a Word document
@@ -56,7 +57,8 @@ The solution is in three parts:
 ##### Save the post information (url, author, date entered)
 
  - [x] Identify Database --> CosmoDB (mongoDB interface)
- - [ ] Save the info (json returned by webParser)
+   - [ ] Since [MongoDB interface is note supported at this moment](https://docs.microsoft.com/en-us/connectors/documentdb/) we rollbacked to SQL API
+ - [x] Save the info (json returned by webParser)
 
 ##### Send it to the eReader
 
