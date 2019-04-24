@@ -57,7 +57,7 @@ The solution is in three parts:
 ##### Save the post information (url, author, date entered)
 
  - [x] Identify Database --> CosmoDB (mongoDB interface)
-   - [ ] Since [MongoDB interface is note supported at this moment](https://docs.microsoft.com/en-us/connectors/documentdb/) we rollbacked to SQL API
+   - Since [MongoDB interface is note supported at this moment](https://docs.microsoft.com/en-us/connectors/documentdb/) we rollbacked to SQL API
  - [x] Save the info (json returned by webParser)
 
 ##### Send it to the eReader
