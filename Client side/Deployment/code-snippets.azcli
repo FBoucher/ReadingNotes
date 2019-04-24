@@ -1,0 +1,7 @@
+
+
+#Validate the Cosmo ARM Template
+
+az group deployment validate -g FrankStreamDev --template-file "cosmoDB.json" --parameters name='Readingsnotes'
+
+az group list -o table

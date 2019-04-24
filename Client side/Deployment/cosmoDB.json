@@ -4,43 +4,35 @@
     "parameters": {
         "name": {
             "type": "string"
-        },
-        "location": {
-            "type": "string"
-        },
-        "locationName": {
-            "type": "string"
-        },
-        "defaultExperience": {
-            "type": "string"
-        },
-        "pairedLocation": {
-            "type": "string"
-        },
-        "pairedLocationName": {
-            "type": "string"
         }
     },
-    "variables": {},
+    "variables": {
+        "sufix": "[substring(uniqueString(resourceGroup().id, resourceGroup().location), 0, 4)]",
+        "cosmoDBName": "[concat(parameters('name'), '-', variables('sufix'))]",
+        "LocationName": "East US",
+        "pairedLocation":"westus",
+        "pairedLocationName": "West US",
+        "cosmoKind": "GlobalDocumentDB"
+    },
     "resources": [
         {
             "apiVersion": "2015-04-08",
-            "kind": "MongoDB",
+            "kind": "[variables('cosmoKind')]",
             "type": "Microsoft.DocumentDb/databaseAccounts",
-            "name": "[parameters('name')]",
-            "location": "[parameters('location')]",
+            "name": "[variables('cosmoDBName')]",
+            "location": "[resourceGroup().location]",
             "properties": {
                 "databaseAccountOfferType": "Standard",
                 "locations": [
                     {
-                        "id": "[concat(parameters('name'), '-', parameters('location'))]",
+                        "id": "[concat(variables('cosmoDBName'), '-', resourceGroup().location)]",
                         "failoverPriority": 0,
-                        "locationName": "[parameters('locationName')]"
+                        "locationName": "[variables('locationName')]"
                     },
                     {
-                        "id": "[concat(parameters('name'), '-', parameters('pairedLocation'))]",
+                        "id": "[concat(variables('cosmoDBName'), '-', variables('pairedLocation'))]",
                         "failoverPriority": 1,
-                        "locationName": "[parameters('pairedLocationName')]"
+                        "locationName": "[variables('pairedLocationName')]"
                     }
                 ],
                 "enableMultipleWriteLocations": false,
@@ -50,7 +42,7 @@
                 "dependsOn": []
             },
             "tags": {
-                "defaultExperience": "[parameters('defaultExperience')]"
+                "defaultExperience": "[variables('cosmoKind')]"
             }
         }
     ],
