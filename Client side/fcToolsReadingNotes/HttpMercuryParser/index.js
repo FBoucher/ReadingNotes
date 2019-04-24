@@ -1,4 +1,5 @@
 const mercury = require('@postlight/mercury-parser');
+const uuid = require('uuid');
 
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
@@ -7,6 +8,7 @@ module.exports = async function (context, req) {
 
         const _url = (req.query.url || req.body.url);
         cleanedPost = await mercury.parse(_url);
+        cleanedPost.id = uuid.v4();
 
         context.res = {
             status: 200, /* Defaults to 200 */
