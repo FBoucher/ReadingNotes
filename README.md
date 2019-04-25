@@ -48,7 +48,7 @@ The solution is in three parts:
    - [ ] Azure Function(s)
       - [x] Azure Function wrapping Mercury services
       - [x] Add a new property "id" with a GUID value
-      - [ ] Create an OpenAPI definition for a function
+      - [ ] Create an OpenAPI definition for a function. Unfortunatly this won't be possible for now. As explain in the [doc](https://docs.microsoft.com/en-us/azure/azure-functions/functions-openapi-definition) OpenAPI defenition is not yet supported in Function V2.
    - [x] Call the WebParser, passing the URL
    - [ ] Generate a Word document
      - [ ] Create an Azure Container Instance (ACI) with PanDoc
