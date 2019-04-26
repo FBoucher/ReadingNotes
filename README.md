@@ -34,6 +34,9 @@ The solution is in three parts:
 ### Work in Progress
 
 - [ ] Creating an ARM template to deploy in Azure
+  - [X] Create [ARM Template](preReading/Deployment/cosmoDB.json) for the Cosmo DB, with a [parameter file](preReading/Deployment/deploy.parameters.json).
+  - [ ] Create ARM template for Azure Function
+  - [ ] Create ARM template for Logic Apps
 
 #### Generating a e-book from an article online.
 
@@ -48,7 +51,7 @@ The solution is in three parts:
    - [ ] Azure Function(s)
       - [x] Azure Function wrapping Mercury services
       - [x] Add a new property "id" with a GUID value
-      - [ ] Create an OpenAPI definition for a function. Unfortunately this won't be possible for now. As explain in the [doc](https://docs.microsoft.com/en-us/azure/azure-functions/functions-openapi-definition) OpenAPI definition is not yet supported in Function V2.
+      - [ ] 🚧Create an OpenAPI definition for a function. Unfortunately this won't be possible for now. As explain in the [doc](https://docs.microsoft.com/en-us/azure/azure-functions/functions-openapi-definition) OpenAPI definition is not yet supported in Function V2.
    - [x] Call the WebParser, passing the URL
    - [ ] Generate a Word document
      - [ ] Create an Azure Container Instance (ACI) with PanDoc
