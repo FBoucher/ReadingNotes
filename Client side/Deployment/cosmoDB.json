@@ -7,7 +7,7 @@
         }
     },
     "variables": {
-        "sufix": "[substring(uniqueString(resourceGroup().id, resourceGroup().location), 0, 4)]",
+        "sufix": "[substring(uniqueString(resourceGroup().id, resourceGroup().location), 0, 5)]",
         "cosmoDBName": "[concat(parameters('name'), '-', variables('sufix'))]",
         "LocationName": "East US",
         "pairedLocation":"westus",
