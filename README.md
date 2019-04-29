@@ -2,96 +2,50 @@
 A Solution to get an article to your eReader then collects your notes and generates a post.
 This is the third version of the solution. Every times it's to learn new technology. 
 
-## Version 1
+## Previous Version
+
+### Version 1
 
 Done in Ruby in you can read about it on my post [First step with Ruby: Kindle Clipping Extractor](http://www.frankysnotes.com/2011/11/first-step-with-ruby-kindle-clipping.html). This first version was to automate a process that was taking me at least one hour every week.
 
-## Version 2 
+### Version 2 
 
 Done with a mix of C# and Azure the goal was to be able to generate the reading summary from anywhere. You can read more about it on my post [How I use Azure Logic App, API App and Function App in my life](http://www.frankysnotes.com/2016/10/how-i-use-azure-app-api-app-and.html)
 
 
 ## Version 3 (in progress)
 
-In this version, we need to manage the entire flow. Meaning that all the information about the post before it sent to the eReader need to be saved in a data source. I want to control as much as possible. 
+In this version, we need to manage the entire flow. All the information about the post (author, url, title, dates) will be keep in a data source. All the processes must be in the cloud and should be interchangeable.
 
-The solution is in three parts: 
+The solution is in three modules: 
 
-1. Generating a e-book from an article online.
-   
-   ![GettingPostToEReader][GettingPostToEReader]
-    
-    (schema from: [ReadingNotes_3-0](Draw_io/ReadingNotes_3-0.html))
-2. Generating the summary of the week reconciliation all notes read in one document.
-3. Interface to edit the summary.
+1. [Module Pre-Reading](module-pre-reading/README.md)
+2. [Module Summary Generation](module-summary-generation/README.md)
+3. Module Summary Edition
 
-**Optional**
+**Future Idea**
 
-- Search engine to retrieve notes.
-- automatically publish once done.
+- Search engine to search into notes.
+
+## Module Pre-Reading
+
+This module is to generate eBook from a blog post for a eReader. More detail [here](module-pre-reading/README.md)
+
+## Module Summary Generation
+
+This module is to generate the reading notes summary. Taking the notes, and matching them the the information in the data-source.  More detail [here](module-summary-generation/README.md)
+
+## Module Summary Edition
+
+A web interface to edit a summary before publishing it.  More detail [here](module-summary-edition/README.md)
 
 
-### Work in Progress
+## GLobal Task/ Wishlist
 
 - [ ] Creating an ARM template to deploy in Azure
   - [X] Create [ARM Template](preReading/Deployment/cosmoDB.json) for the Cosmo DB, with a [parameter file](preReading/Deployment/deploy.parameters.json).
   - [ ] Create ARM template for Azure Function
   - [ ] Create ARM template for Logic Apps
+- [ ] Azure Deploy button from GitHub
 
-#### Generating a e-book from an article online.
-
-##### Getting the URL of the post
-
-- [ ] Create the Bookmarklet (javascript code )
-
-##### Removing everything except the post content
-
-- [ ] Logic Apps
-   - [x] Receive a URL as querystring parameters
-   - [ ] Azure Function(s)
-      - [x] Azure Function wrapping Mercury services
-      - [x] Add a new property "id" with a GUID value
-      - [ ] 🚧Create an OpenAPI definition for a function. Unfortunately this won't be possible for now. As explain in the [doc](https://docs.microsoft.com/en-us/azure/azure-functions/functions-openapi-definition) OpenAPI definition is not yet supported in Function V2.
-   - [x] Call the WebParser, passing the URL
-   - [ ] Generate a Word document
-     - [ ] Create an Azure Container Instance (ACI) with PanDoc
-     - [ ] Once Up generate a Word document from the html
-
-##### Save the post information (url, author, date entered)
-
- - [x] Identify Database --> CosmoDB (mongoDB interface)
-   - Since [MongoDB interface is note supported at this moment](https://docs.microsoft.com/en-us/connectors/documentdb/) we rollbacked to SQL API
- - [x] Save the info (json returned by webParser)
-
-##### Send it to the eReader
-
-- [ ] Send Word document as attachment to the Kindle service.
-
-#### Generating the summary
-
-- [ ] Get the notes
-- [ ] Get Global info ( ReadingNotes#)
-- [ ] For each note
-  - [ ] Find the saved information
-  - [ ] Save comment with note information
-  - [ ] Get tags
-  - [ ] Add the note to summary
-  - [ ] Add new unique tags to that summary tags
-- [ ] Generate the Summary
-- [ ] Save Summary
-- [ ] Save Global info
-
-#### Interface to edit the summary
-
-- [ ] Open a summary
-- [ ] Edit global tags
-- [ ] Edit note tags
-- [ ] Edit note comment
-- [ ] Add image to the Reading Notes
-- [ ] Publish
-
-
-
-
-[GettingPostToEReader]: medias/GettingPostToEReader.png 'Getting the post to the eReader'
      
