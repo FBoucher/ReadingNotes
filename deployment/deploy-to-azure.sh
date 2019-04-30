@@ -1,5 +1,4 @@
 
+az cosmosdb database create -g FrankStreamDev -n readingnotes --db-name readingnotes
 
-az group create --name GitStreamDev -l eatus
-
-az group deployment create -g GitStreamDev --template-file "deploy.json" -n testDeployGitHub
+az cosmosdb collection create --collection-name postToRead2 -g FrankStreamDev --db-name readingnotes --partition-key-path /domain

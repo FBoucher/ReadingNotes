@@ -12,3 +12,10 @@ az group deployment create -g FrankStreamDev --template-file "Client side\Deploy
 
 # Validate Master template
 az group deployment validate -g FrankStreamDev --template-file "deployment\deploy.json"
+
+
+az cosmosdb database create -g FrankStreamDev -n readingnotes --db-name readingnotes
+
+az cosmosdb collection create --collection-name postToRead2 -g FrankStreamDev --db-name readingnotes --partition-key-path /domain
+
+
