@@ -27,6 +27,10 @@ The solution is in three modules:
 
 - Search engine to search into notes.
 
+## Deploy To Azure
+
+[![Deploy to Azure](https://azuredeploy.net/deploybuttong.png)](https://deploy.azure.com?repository=https://github.com/FBoucher/ReadingNotes)
+
 ## Module Pre-Reading
 
 This module is to generate eBook from a blog post for a eReader. More detail [here](module-pre-reading/README.md)
