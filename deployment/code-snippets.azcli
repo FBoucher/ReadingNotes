@@ -7,3 +7,8 @@ az group deployment validate -g FrankStreamDev --template-file "Client side\Depl
 az group deployment create -g FrankStreamDev --template-file "Client side\Deployment\cosmoDB.json" --parameters "Client side\Deployment\deploy.parameters.json" -n testDeploy-04-26
 
 # az cosmosdb collection create 
+
+
+
+# Validate Master template
+az group deployment validate -g FrankStreamDev --template-file "deployment\deploy.json"

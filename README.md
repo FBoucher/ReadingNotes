@@ -21,7 +21,7 @@ The solution is in three modules:
 
 1. [Module Pre-Reading](module-pre-reading/README.md)
 2. [Module Summary Generation](module-summary-generation/README.md)
-3. Module Summary Edition
+3. [Module Summary Edition](module-summary-edition/README.md)
 
 **Future Idea**
 
