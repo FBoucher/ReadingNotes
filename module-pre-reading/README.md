@@ -19,7 +19,7 @@ Finally, the Logic App will send the document as an attachment to the email conf
 > You can retreived this email from the Amazon website in the section manage devices.
 
 ![GettingPostToEReader][GettingPostToEReader]
-(schema from: [ReadingNotes_3-0](../draw_io/ReadingNotes_3-0.html))
+*schema from: [ReadingNotes_3-0](../draw_io/ReadingNotes_3-0.html)*
 
 ## Installation
 
@@ -41,13 +41,13 @@ Finally, the Logic App will send the document as an attachment to the email conf
 
 ## Project
 
-## Tasks/ Wishlist
+## Tasks
 
 ### Generating a e-book from an article online.
 
 #### Getting the URL of the post
 
-- [X] Create the Bookmarklet (javascript code )
+- [X] Create the Bookmarklet (javascript code)
 
 #### Removing everything except the post content
 
@@ -72,12 +72,20 @@ Finally, the Logic App will send the document as an attachment to the email conf
 
 - [X] Send Word document as attachment to the Kindle service.
 
+## Streams
 
+I worked on this project while streaming most of the time. Here are the list of the stream where I code/ design/ plan/ explain/ learn with you. The stream are from the most recent to the oldest.
 
-## Stream
-
-| Date | Title | 
-|------|-------|
+|    Date    |  Title                                                        | 
+|------------|---------------------------------------------------------------|
+| 2019-05-03 | [Live codeing - Working on Bookmarklet - ReadingNotes Project](https://www.twitch.tv/videos/419777850)|
 | 2019-05-01 | [Live codeing - Working on Azure-Docker-LogicApps - ReadingNotes Project](https://www.twitch.tv/videos/418862208?filter=archives&sort=time) |
+| 2019-04-30 | [Live codeing on the ARM template for ReadingNotes](https://www.twitch.tv/videos/418554878)|
+| 2019-04-26 | [Live codeing on the ARM template for ReadingNotes](https://www.twitch.tv/videos/416628888)|
+| 2019-04-24 | [Learning Azure Cosmo DB with Logic Apps](https://www.twitch.tv/videos/415694786)|
+| 2019-04-22 | [Learning Azure Cosmo DB ](https://www.twitch.tv/videos/414891099)|
+| 2019-04-19 | [GitHub Stream Project Maintenace](https://www.twitch.tv/videos/413446983)|
+| 2019-04-17 | [Working on an Azure Logic Apps](https://www.twitch.tv/videos/412377073)|
+| 2019-04-08 | [Coding Azure Function (Wrapping Mercury services)](https://www.twitch.tv/videos/408181676)|
 
 [GettingPostToEReader]: medias/GettingPostToEReader.png 'Getting the post to the eReader'
