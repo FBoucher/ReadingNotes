@@ -39,6 +39,24 @@ Finally, the Logic App will send the document as an attachment to the email conf
 
   > You will need to edit it to replace `_URL_OF_YOUR_LOGICAPP_` by the URL of your Azure Logic App.
 
+## Installation
+
+1. Deploy the Azure Resources
+
+  You need to create:
+
+  - Logic App using [SendWebPageToeReader.json](LogicApps/SendWebPageToeReader.json)
+  - Azure Function using the folder [fcToolsReadingNotes](fcToolsReadingNotes)
+  - Cosmos DB with a collection named `postToRead` and a partition key `/domain`
+
+  > **Eventually it will all be deploy automatically.**🤞
+
+2. From your Internet browser create a new bookmark. Instead of a URL we will put some javascript code into it. This will transform the bookmark into a Bookmarklet. 
+
+  The Javascript is available into [bookmarklet.js](bookmarklet.js)
+
+  > You will need to edit it to replace `_URL_OF_YOUR_LOGICAPP_` by the URL of your Azure Logic App.
+
 ## Project
 
 ## Tasks
@@ -47,7 +65,11 @@ Finally, the Logic App will send the document as an attachment to the email conf
 
 #### Getting the URL of the post
 
+<<<<<<< HEAD
 - [X] Create the Bookmarklet (javascript code)
+=======
+- [X] Create the Bookmarklet (javascript code )
+>>>>>>> 67eb35323e32fa9f50dc3ed0954f1acbd2760aa8
 
 #### Removing everything except the post content
 
@@ -87,5 +109,9 @@ I worked on this project while streaming most of the time. Here are the list of 
 | 2019-04-19 | [GitHub Stream Project Maintenace](https://www.twitch.tv/videos/413446983)|
 | 2019-04-17 | [Working on an Azure Logic Apps](https://www.twitch.tv/videos/412377073)|
 | 2019-04-08 | [Coding Azure Function (Wrapping Mercury services)](https://www.twitch.tv/videos/408181676)|
+
+| Date | Title | 
+|------|-------|
+| 2019-05-01 | [Live codeing - Working on Azure-Docker-LogicApps - ReadingNotes Project](https://www.twitch.tv/videos/418862208?filter=archives&sort=time) |
 
 [GettingPostToEReader]: medias/GettingPostToEReader.png 'Getting the post to the eReader'
