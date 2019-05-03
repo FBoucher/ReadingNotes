@@ -7,5 +7,11 @@
     "obj": true,
     "bin": true
   },
-  "debug.internalConsoleOptions": "neverOpen"
+  "debug.internalConsoleOptions": "neverOpen",
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#4bf889",
+    "titleBar.inactiveBackground": "#4bf88999",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveForeground": "#15202b99"
+  }
 }

@@ -1,4 +1,5 @@
 
-// Boormarklet to extract and send the URL to the Logic App
+// Boormarklet to take the current url (aka window.location) and send it in the query string to Logic App
 
-javascript:(function(f,s,n,o){window.open(f+encodeURIComponent(s),n,o)}('http://localhost:7071/api/InitBookmark?postUrl=',window.location,'yourform','width=300,height=200'));
+javascript:(function(f,s,n,o){window.open(f+encodeURIComponent(s),n,o)}('_URL_OF_YOUR_LOGICAPP_&postUrl=',window.location,'yourform','width=300,height=200'));
+

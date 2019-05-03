@@ -29,7 +29,7 @@ The solution is in three modules:
 
 ## Deploy To Azure
 
-[![Deploy to Azure](https://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/))
+[![Deploy to Azure](https://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/)
 
 ## Module Pre-Reading
 
