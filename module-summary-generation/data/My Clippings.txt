@@ -1,0 +1,80 @@
+Where do you keep credentials for your Lambda functions? (Davide de Paolis)
+- Your Note on Location 104 | Added on Saturday, May 4, 2019 7:24:20 AM
+
+Nice post that shows the  proper eay to store our  credentials when deploying lamdas.[cloud.aws.lampda.credential]
+==========
+﻿Where do you keep credentials for your Lambda functions? (Davide de Paolis)
+- Your Highlight on Location 104-104 | Added on Saturday, May 4, 2019 7:24:20 AM
+
+deal
+==========
+﻿Undo changes in Git - Cheat sheet for git checkout, stash, reset, clean, revert, rebase -i, amend (Michael)
+- Your Note on Location 228 | Added on Saturday, May 4, 2019 7:51:34 AM
+
+Awesome post that explains how to fix some  mistake while using Git. Because  like the  author says: git is one of those thing you learn progressively.[dev.git]
+==========
+﻿Undo changes in Git - Cheat sheet for git checkout, stash, reset, clean, revert, rebase -i, amend (Michael)
+- Your Highlight on Location 228-228 | Added on Saturday, May 4, 2019 7:51:34 AM
+
+code
+==========
+﻿A crash course to the most important Docker concepts and their commands (Chris Noring)
+- Your Note on Location 172 | Added on Sunday, May 5, 2019 6:02:05 PM
+
+Oooh. Thats the first post of  what look like  a very promessing series on docker. More  to come.[dev.docker.series.oart1]
+==========
+﻿A crash course to the most important Docker concepts and their commands (Chris Noring)
+- Your Highlight on Location 172-172 | Added on Sunday, May 5, 2019 6:02:05 PM
+
+footsteps,
+==========
+﻿When npm tells you you're hosed (null)
+- Your Note on Location 35 | Added on Sunday, May 5, 2019 6:07:57 PM
+
+Nice luttle tricks here to save us  some key strokes.[dev.node.bash.alias.tips]
+==========
+﻿When npm tells you you're hosed (null)
+- Your Highlight on Location 35-35 | Added on Sunday, May 5, 2019 6:07:57 PM
+
+once
+==========
+﻿Create your own course on GitHub Learning Lab (null)
+- Your Note on Location 39 | Added on Sunday, May 5, 2019 8:18:10 PM
+
+Wow! That's something that looks interesting... And I have a few ideas.[misc.github.labs]
+==========
+﻿Create your own course on GitHub Learning Lab (null)
+- Your Highlight on Location 39-39 | Added on Sunday, May 5, 2019 8:18:10 PM
+
+webcasts
+==========
+﻿Did I leave the garage door open? A no-code project with Azure IoT Central and the MXChip DevKit (null)
+- Your Highlight on Location 66-66 | Added on Sunday, May 5, 2019 8:53:38 PM
+
+It's amazing how clean and simple
+==========
+﻿Did I leave the garage door open? A no-code project with Azure IoT Central and the MXChip DevKit (null)
+- Your Note on Location 66 | Added on Sunday, May 5, 2019 8:54:57 PM
+
+Wonderful post tht proof  thatt we can do simple IoT project at home that are useful.[dev.iot]
+==========
+﻿Can’t Attend DockerCon 2019? Here are your Top 5 “To Dos” - Docker Blog (null)
+- Your Highlight on Location 13-13 | Added on Sunday, May 5, 2019 8:59:22 PM
+
+If you’re not one of the thousands
+==========
+﻿Can’t Attend DockerCon 2019? Here are your Top 5 “To Dos” - Docker Blog (null)
+- Your Note on Location 13 | Added on Sunday, May 5, 2019 9:00:37 PM
+
+Or  if  you are  like me... Watch It after... Its waaay better then nothing![dev.docker.dockefrcon.video]
+==========
+﻿It’s a Wrap - Highlights from the DockerCon 2019 Keynote Sessions - Docker Blog (null)
+- Your Note on Location 13 | Added on Sunday, May 5, 2019 9:02:44 PM
+
+Great way to grab the essentiall and Dig for  more from there.[dev.docker.dockercon]
+==========
+﻿It’s a Wrap - Highlights from the DockerCon 2019 Keynote Sessions - Docker Blog (null)
+- Your Highlight on Location 13-13 | Added on Sunday, May 5, 2019 9:02:44 PM
+
+Francisco
+==========
