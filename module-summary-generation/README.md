@@ -42,9 +42,3 @@ You can see the current status of the tasks on the [Project board](https://githu
 - [ ] Generate the Summary
 - [ ] Save Summary
 - [ ] Save Global info
-
-## Stream Sessions
-
-|    Date    |  Title                                                         | 
-|------------|----------------------------------------------------------------|
-| 2019-05-03 | [Live coding - Design Session ReadingNotes Summary Generator](https://www.twitch.tv/videos/422031693)|
