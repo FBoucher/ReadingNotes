@@ -52,4 +52,20 @@ A web interface to edit a summary before publishing it.  More detail [here](modu
   - [ ] Create ARM template for Logic Apps
 - [ ] Azure Deploy button from GitHub
 
-     
+## Streams
+
+I worked on this project while streaming most of the time. Here are the list of the stream where I code/ design/ plan/ explain/ learn with you. The stream are from the most recent to the oldest.
+
+|    Date    |   Module           |  Title                                                        | 
+|------------|--------------------|---------------------------------------------------------------|
+| 2019-05-10 | Summary Generation | [Coding .Net Core Web API for ReadingNotes Summary Generator](https://www.twitch.tv/videos/422940515)|
+| 2019-05-03 | Summary Generation | [Design Session ReadingNotes Summary Generator](https://www.twitch.tv/videos/422031693)|
+| 2019-05-03 | Pre-Reading        | [Working on Bookmarklet - ReadingNotes Project](https://www.twitch.tv/videos/419777850)|
+| 2019-05-01 | Pre-Reading        | [Working on Azure-Docker-LogicApps - ReadingNotes Project](https://www.twitch.tv/videos/418862208) |
+| 2019-04-30 | Pre-Reading        | [Coding on the ARM template for ReadingNotes](https://www.twitch.tv/videos/418554878)|
+| 2019-04-26 | Pre-Reading        | [Coding on the ARM template for ReadingNotes](https://www.twitch.tv/videos/416628888)|
+| 2019-04-24 | Pre-Reading        | [Learning Azure Cosmo DB with Logic Apps](https://www.twitch.tv/videos/415694786)|
+| 2019-04-22 | Pre-Reading        | [Learning Azure Cosmo DB ](https://www.twitch.tv/videos/414891099)|
+| 2019-04-19 | Pre-Reading        | [GitHub Stream Project Maintenace](https://www.twitch.tv/videos/413446983)|
+| 2019-04-17 | Pre-Reading        | [Working on an Azure Logic Apps](https://www.twitch.tv/videos/412377073)|
+| 2019-04-08 | Pre-Reading        | [Coding Azure Function (Wrapping Mercury services)](https://www.twitch.tv/videos/408181676)|
