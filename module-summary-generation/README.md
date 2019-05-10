@@ -42,4 +42,3 @@ You can see the current status of the tasks on the [Project board](https://githu
 - [ ] Generate the Summary
 - [ ] Save Summary
 - [ ] Save Global info
-
