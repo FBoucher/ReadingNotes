@@ -58,6 +58,7 @@ I worked on this project while streaming most of the time. Here are the list of 
 
 |    Date    |   Module           |  Title                                                        | 
 |------------|--------------------|---------------------------------------------------------------|
+| 2019-05-15 | Summary Generation | - part 1: [Build CI for a .Net Core Web API ](https://www.twitch.tv/videos/425146593) <br/>- part 2: [Build CI for a .Net Core Web API ](https://www.twitch.tv/videos/425171190)|
 | 2019-05-10 | Summary Generation | [Coding .Net Core Web API for ReadingNotes Summary Generator](https://www.twitch.tv/videos/422940515)|
 | 2019-05-03 | Summary Generation | [Design Session ReadingNotes Summary Generator](https://www.twitch.tv/videos/422031693)|
 | 2019-05-03 | Pre-Reading        | [Working on Bookmarklet - ReadingNotes Project](https://www.twitch.tv/videos/419777850)|
