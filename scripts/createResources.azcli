@@ -1,0 +1,10 @@
+
+
+# Validate and run the Nested template
+
+az group deployment validate -g FrankStreamDev --template-file "azuredeploy.json" 
+
+az group deployment create -g FrankStreamDev --template-file "azuredeploy.json" -n testDeploy-05-22
+
+
+

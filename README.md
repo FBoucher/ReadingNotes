@@ -58,6 +58,7 @@ I worked on this project while streaming most of the time. Here are the list of 
 
 |    Date    |   Module           |  Title                                                        | 
 |------------|--------------------|---------------------------------------------------------------|
+| 2019-05-21 | Summary Generation | [Working on Unit Test with Azure Pipeline](https://www.twitch.tv/videos/428255583)|
 | 2019-05-17 | Summary Generation | [Merging Arlvin's PR and adding the XUnit tests to the Azure Pipeline](https://www.twitch.tv/videos/427490207)|
 | 2019-05-17 | Summary Generation | [Learning how to do XUnit tests with Arlvin Moyo](https://www.twitch.tv/videos/426033843)|
 | 2019-05-15 | Summary Generation | - part 1: [Build CI for a .Net Core Web API ](https://www.twitch.tv/videos/425146593) <br/>- part 2: [Build CI for a .Net Core Web API ](https://www.twitch.tv/videos/425171190)|
