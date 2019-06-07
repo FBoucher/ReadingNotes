@@ -2,6 +2,8 @@
 A Solution to get an article to your eReader then collects your notes and generates a post.
 This is the third version of the solution. Every times it's to learn new technology. 
 
+> This project is part of the [Stream-Projects](https://github.com/FBoucher/stream-projects). Those are projects that I worked online while streaming or while video recording. 
+
 ## Previous Version
 
 ### Version 1

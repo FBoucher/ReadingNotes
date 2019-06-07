@@ -4,6 +4,8 @@
 
 This part of the solution (module) is to generate the reading notes summary. Taking all the unpublished notes from the [My Clippings.txt](data/My%20Clippings.txt), and matching them to the  information previously saved in the database. Then generate a markdown file.
 
+![GeneratingSummary][GeneratingSummary]
+
 ## How it works
 
 - The solution input is a `My Clippings.txt` file (you can see a sample [here](data/My%20Clippings.txt)).
@@ -43,3 +45,6 @@ You can see the current status of the tasks on the [Project board](https://githu
 - [ ] Save Summary
 - [ ] Save Global info
 
+
+
+[GeneratingSummary]: medias/ReadingNotes_3-0-Generating_Sumary.png 'Generating the Summary'
