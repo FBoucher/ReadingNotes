@@ -1,0 +1,281 @@
+{
+    "$connections": {
+        "value": {
+            "aci": {
+                "connectionName": "aci"
+            },
+            "onedrive": {
+                "connectionName": "onedrive"
+            }
+        }
+    },
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Create_ACI_MyClippings-Parser": {
+                "inputs": {
+                    "body": {
+                        "location": "eastus",
+                        "properties": {
+                            "containers": [
+                                {
+                                    "name": "myclippingsparser-inst",
+                                    "properties": {
+                                        "image": "fboucher/myclippings-parser:v1",
+                                        "ports": [
+                                            {
+                                                "port": 80,
+                                                "protocol": "TCP"
+                                            }
+                                        ],
+                                        "resources": {
+                                            "requests": {
+                                                "cpu": 2,
+                                                "memoryInGB": 3.5
+                                            }
+                                        }
+                                    }
+                                }
+                            ],
+                            "ipAddress": {
+                                "ports": [
+                                    {
+                                        "port": 80,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "type": "Public"
+                            },
+                            "osType": "Linux",
+                            "restartPolicy": "OnFailure"
+                        }
+                    },
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['aci']['connectionId']"
+                        }
+                    },
+                    "method": "put",
+                    "path": "/subscriptions/@{encodeURIComponent('7996ab95-e0f1-497f-9ccf-9a7618d92842')}/resourceGroups/@{encodeURIComponent('FrankStreamDev')}/providers/Microsoft.ContainerInstance/containerGroups/@{encodeURIComponent('myclippingsparser')}",
+                    "queries": {
+                        "x-ms-api-version": "2017-10-01-preview"
+                    }
+                },
+                "runAfter": {},
+                "type": "ApiConnection"
+            },
+            "For_each_Notes": {
+                "actions": {
+                    "Increment_variable": {
+                        "inputs": {
+                            "name": "counter",
+                            "value": 1
+                        },
+                        "runAfter": {
+                            "Read_Array": [
+                                "Succeeded"
+                            ]
+                        },
+                        "type": "IncrementVariable"
+                    },
+                    "Read_Array": {
+                        "inputs": {
+                            "name": "note",
+                            "value": "@{body('HTTP')[variables('counter')].bookName}"
+                        },
+                        "runAfter": {
+                            "Read_Current": [
+                                "Succeeded"
+                            ]
+                        },
+                        "type": "SetVariable"
+                    },
+                    "Read_Current": {
+                        "inputs": {
+                            "name": "temp",
+                            "value": "@{items('For_each_Notes').bookName}"
+                        },
+                        "runAfter": {},
+                        "type": "SetVariable"
+                    }
+                },
+                "foreach": "@body('HTTP')",
+                "runAfter": {
+                    "init_note": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Foreach"
+            },
+            "HTTP": {
+                "inputs": {
+                    "body": "@triggerBody()",
+                    "headers": {
+                        "Content-Type": "application/json"
+                    },
+                    "method": "POST",
+                    "uri": "http://@{body('Create_ACI_MyClippings-Parser')?['properties']?['ipAddress']?['ip']}/api/myclippings"
+                },
+                "runAfter": {
+                    "Until": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Http"
+            },
+            "Initialize_variable": {
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "temp",
+                            "type": "String"
+                        }
+                    ]
+                },
+                "runAfter": {
+                    "HTTP": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "InitializeVariable"
+            },
+            "Until": {
+                "actions": {
+                    "For_each": {
+                        "actions": {
+                            "Condition": {
+                                "actions": {},
+                                "else": {
+                                    "actions": {
+                                        "Delay": {
+                                            "inputs": {
+                                                "interval": {
+                                                    "count": 15,
+                                                    "unit": "Second"
+                                                }
+                                            },
+                                            "runAfter": {},
+                                            "type": "Wait"
+                                        }
+                                    }
+                                },
+                                "expression": {
+                                    "and": [
+                                        {
+                                            "equals": [
+                                                "@items('For_each')?['properties']?['instanceView']?['currentState']?['state']",
+                                                "Running"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                "runAfter": {},
+                                "type": "If"
+                            }
+                        },
+                        "foreach": "@body('Get_properties_of_a_container_group')['properties']['containers']",
+                        "runAfter": {
+                            "Get_properties_of_a_container_group": [
+                                "Succeeded"
+                            ]
+                        },
+                        "type": "Foreach"
+                    },
+                    "Get_properties_of_a_container_group": {
+                        "inputs": {
+                            "host": {
+                                "connection": {
+                                    "name": "@parameters('$connections')['aci']['connectionId']"
+                                }
+                            },
+                            "method": "get",
+                            "path": "/subscriptions/@{encodeURIComponent('7996ab95-e0f1-497f-9ccf-9a7618d92842')}/resourceGroups/@{encodeURIComponent('FrankStreamDev')}/providers/Microsoft.ContainerInstance/containerGroups/@{encodeURIComponent(body('Create_ACI_MyClippings-Parser')?['name'])}",
+                            "queries": {
+                                "x-ms-api-version": "2017-10-01-preview"
+                            }
+                        },
+                        "runAfter": {},
+                        "type": "ApiConnection"
+                    }
+                },
+                "expression": "@equals(body('Create_ACI_MyClippings-Parser')?['properties']?['instanceView']?['state'], 'Succeeded')",
+                "limit": {
+                    "count": 60,
+                    "timeout": "PT1H"
+                },
+                "runAfter": {
+                    "Create_ACI_MyClippings-Parser": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Until"
+            },
+            "init_counter": {
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "counter",
+                            "type": "Integer",
+                            "value": 0
+                        }
+                    ]
+                },
+                "runAfter": {
+                    "Initialize_variable": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "InitializeVariable"
+            },
+            "init_note": {
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "note",
+                            "type": "String"
+                        }
+                    ]
+                },
+                "runAfter": {
+                    "init_counter": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "InitializeVariable"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {
+            "$connections": {
+                "defaultValue": {},
+                "type": "Object"
+            }
+        },
+        "triggers": {
+            "When_a_file_is_created": {
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['onedrive']['connectionId']"
+                        }
+                    },
+                    "method": "get",
+                    "path": "/datasets/default/triggers/onnewfile",
+                    "queries": {
+                        "folderId": "B612C98DD673F9C1!28463",
+                        "inferContentType": true
+                    }
+                },
+                "metadata": {
+                    "B612C98DD673F9C1!28463": "/dev/Notes_V3"
+                },
+                "recurrence": {
+                    "frequency": "Minute",
+                    "interval": 3
+                },
+                "type": "ApiConnection"
+            }
+        }
+    }
+}
