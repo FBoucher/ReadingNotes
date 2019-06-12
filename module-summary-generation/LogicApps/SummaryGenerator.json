@@ -2,10 +2,14 @@
     "$connections": {
         "value": {
             "aci": {
-                "connectionName": "aci"
+                "connectionId": "",
+                "connectionName": "aci",
+                "id": ""
             },
             "onedrive": {
-                "connectionName": "onedrive"
+                "connectionId": "",
+                "connectionName": "onedrive",
+                "id": ""
             }
         }
     },
@@ -56,7 +60,7 @@
                         }
                     },
                     "method": "put",
-                    "path": "/subscriptions/@{encodeURIComponent('7996ab95-e0f1-497f-9ccf-9a7618d92842')}/resourceGroups/@{encodeURIComponent('FrankStreamDev')}/providers/Microsoft.ContainerInstance/containerGroups/@{encodeURIComponent('myclippingsparser')}",
+                    "path": "",
                     "queries": {
                         "x-ms-api-version": "2017-10-01-preview"
                     }
@@ -66,42 +70,134 @@
             },
             "For_each_Notes": {
                 "actions": {
-                    "Increment_variable": {
-                        "inputs": {
-                            "name": "counter",
-                            "value": 1
+                    "If_Type_is_Note": {
+                        "actions": {
+                            "Append_to_array_variable": {
+                                "inputs": {
+                                    "name": "ReadingNotes",
+                                    "value": "@body('NoteCleaner')"
+                                },
+                                "runAfter": {
+                                    "NoteCleaner": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "AppendToArrayVariable"
+                            },
+                            "NoteCleaner": {
+                                "inputs": {
+                                    "body": {
+                                        "author": "@{items('For_each_Notes').author}",
+                                        "beginningLocation": "@{items('For_each_Notes').beginningLocation}",
+                                        "beginningPage": "@{items('For_each_Notes').beginningPage}",
+                                        "bookName": "@{items('For_each_Notes').bookName}",
+                                        "clippingType": "@{items('For_each_Notes').clippingType}",
+                                        "dateAdded": "@{items('For_each_Notes').dateAdded}",
+                                        "location": "@{items('For_each_Notes').location}",
+                                        "page": "@{items('For_each_Notes').page}",
+                                        "text": "@{items('For_each_Notes').text}"
+                                    },
+                                    "host": {
+                                        "triggerName": "manual",
+                                        "workflow": {
+                                            "id": "/subscriptions/7996ab95-e0f1-497f-9ccf-9a7618d92842/resourceGroups/FrankStreamDev/providers/Microsoft.Logic/workflows/NoteCleaner"
+                                        }
+                                    }
+                                },
+                                "runAfter": {},
+                                "type": "Workflow"
+                            }
+                        },
+                        "else": {
+                            "actions": {
+                                "Set_variable": {
+                                    "inputs": {
+                                        "name": "dummy",
+                                        "value": true
+                                    },
+                                    "runAfter": {},
+                                    "type": "SetVariable"
+                                }
+                            }
+                        },
+                        "expression": {
+                            "and": [
+                                {
+                                    "equals": [
+                                        "@variables('isNote')",
+                                        "@true"
+                                    ]
+                                }
+                            ]
                         },
                         "runAfter": {
-                            "Read_Array": [
+                            "Switch": [
                                 "Succeeded"
                             ]
                         },
-                        "type": "IncrementVariable"
+                        "type": "If"
                     },
-                    "Read_Array": {
+                    "Set_clippingType": {
                         "inputs": {
-                            "name": "note",
-                            "value": "@{body('HTTP')[variables('counter')].bookName}"
-                        },
-                        "runAfter": {
-                            "Read_Current": [
-                                "Succeeded"
-                            ]
-                        },
-                        "type": "SetVariable"
-                    },
-                    "Read_Current": {
-                        "inputs": {
-                            "name": "temp",
-                            "value": "@{items('For_each_Notes').bookName}"
+                            "name": "clippingType",
+                            "value": "@{string(items('For_each_Notes')['clippingType'])}"
                         },
                         "runAfter": {},
                         "type": "SetVariable"
+                    },
+                    "Switch": {
+                        "cases": {
+                            "Case": {
+                                "actions": {
+                                    "Set_variable_4": {
+                                        "inputs": {
+                                            "name": "isNote",
+                                            "value": "@false"
+                                        },
+                                        "runAfter": {},
+                                        "type": "SetVariable"
+                                    }
+                                },
+                                "case": 0
+                            },
+                            "Case_1": {
+                                "actions": {
+                                    "Set_variable_3": {
+                                        "inputs": {
+                                            "name": "isNote",
+                                            "value": "@true"
+                                        },
+                                        "runAfter": {},
+                                        "type": "SetVariable"
+                                    }
+                                },
+                                "case": 1
+                            }
+                        },
+                        "default": {
+                            "actions": {
+                                "Set_variable_2": {
+                                    "inputs": {
+                                        "name": "isNote",
+                                        "value": "@false"
+                                    },
+                                    "runAfter": {},
+                                    "type": "SetVariable"
+                                }
+                            }
+                        },
+                        "expression": "@variables('clippingType')",
+                        "runAfter": {
+                            "Set_clippingType": [
+                                "Succeeded"
+                            ]
+                        },
+                        "type": "Switch"
                     }
                 },
                 "foreach": "@body('HTTP')",
                 "runAfter": {
-                    "init_note": [
+                    "Initialize_variable_2": [
                         "Succeeded"
                     ]
                 },
@@ -123,17 +219,66 @@
                 },
                 "type": "Http"
             },
-            "Initialize_variable": {
+            "Init_ReadingNotes_Collection": {
                 "inputs": {
                     "variables": [
                         {
-                            "name": "temp",
-                            "type": "String"
+                            "name": "ReadingNotes",
+                            "type": "Array"
                         }
                     ]
                 },
                 "runAfter": {
                     "HTTP": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "InitializeVariable"
+            },
+            "Init_clippingType": {
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "clippingType",
+                            "type": "String"
+                        }
+                    ]
+                },
+                "runAfter": {
+                    "Init_ReadingNotes_Collection": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "InitializeVariable"
+            },
+            "Initialize_variable": {
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "dummy",
+                            "type": "Boolean"
+                        }
+                    ]
+                },
+                "runAfter": {
+                    "Init_clippingType": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "InitializeVariable"
+            },
+            "Initialize_variable_2": {
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "isNote",
+                            "type": "Boolean",
+                            "value": "@false"
+                        }
+                    ]
+                },
+                "runAfter": {
+                    "Initialize_variable": [
                         "Succeeded"
                     ]
                 },
@@ -189,7 +334,7 @@
                                 }
                             },
                             "method": "get",
-                            "path": "/subscriptions/@{encodeURIComponent('7996ab95-e0f1-497f-9ccf-9a7618d92842')}/resourceGroups/@{encodeURIComponent('FrankStreamDev')}/providers/Microsoft.ContainerInstance/containerGroups/@{encodeURIComponent(body('Create_ACI_MyClippings-Parser')?['name'])}",
+                            "path": "",
                             "queries": {
                                 "x-ms-api-version": "2017-10-01-preview"
                             }
@@ -209,39 +354,6 @@
                     ]
                 },
                 "type": "Until"
-            },
-            "init_counter": {
-                "inputs": {
-                    "variables": [
-                        {
-                            "name": "counter",
-                            "type": "Integer",
-                            "value": 0
-                        }
-                    ]
-                },
-                "runAfter": {
-                    "Initialize_variable": [
-                        "Succeeded"
-                    ]
-                },
-                "type": "InitializeVariable"
-            },
-            "init_note": {
-                "inputs": {
-                    "variables": [
-                        {
-                            "name": "note",
-                            "type": "String"
-                        }
-                    ]
-                },
-                "runAfter": {
-                    "init_counter": [
-                        "Succeeded"
-                    ]
-                },
-                "type": "InitializeVariable"
             }
         },
         "contentVersion": "1.0.0.0",

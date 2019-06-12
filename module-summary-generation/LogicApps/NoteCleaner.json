@@ -1,0 +1,116 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "Extract_Tags_Note_and_Category": {
+                "inputs": {
+                    "code": "var note = \"\" + workflowContext.trigger.outputs.body.text;\r\nvar posTag = note.lastIndexOf(\"[\") + 1;\r\nvar cleanNote = {};\r\n\r\nif(posTag > 0){\r\n        cleanNote.tags = note.substring(posTag, note.length-1);\r\n        cleanNote.msg = note.substring(0,posTag-1);\r\n        cleanNote.category = cleanNote.tags.split(\".\")[0];\r\n}\r\nreturn cleanNote;"
+                },
+                "runAfter": {},
+                "type": "JavaScriptCode"
+            },
+            "Init_ReadingNote": {
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "readingNote",
+                            "type": "Object",
+                            "value": {
+                                "author": "@{triggerBody()?['author']}",
+                                "category": "@{body('Extract_Tags_Note_and_Category')['category']}",
+                                "dateAdded": "@{triggerBody()?['dateAdded']}",
+                                "msg": "@{body('Extract_Tags_Note_and_Category')['msg']}",
+                                "tags": "@{body('Extract_Tags_Note_and_Category')['tags']}",
+                                "title": "@{triggerBody()?['bookName']}"
+                            }
+                        }
+                    ]
+                },
+                "runAfter": {
+                    "Extract_Tags_Note_and_Category": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "InitializeVariable"
+            },
+            "Response": {
+                "inputs": {
+                    "body": "@variables('readingNote')",
+                    "schema": {
+                        "properties": {
+                            "author": {
+                                "type": "string"
+                            },
+                            "category": {
+                                "type": "string"
+                            },
+                            "dateAdded": {
+                                "type": "string"
+                            },
+                            "note": {
+                                "type": "string"
+                            },
+                            "postUrl": {
+                                "type": "string"
+                            },
+                            "tags": {
+                                "type": "string"
+                            },
+                            "title": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "statusCode": 200
+                },
+                "kind": "Http",
+                "runAfter": {
+                    "Init_ReadingNote": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Response"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {},
+        "triggers": {
+            "manual": {
+                "inputs": {
+                    "schema": {
+                        "properties": {
+                            "author": {
+                                "type": "string"
+                            },
+                            "beginningLocation": {
+                                "type": "integer"
+                            },
+                            "beginningPage": {},
+                            "bookName": {
+                                "type": "string"
+                            },
+                            "clippingType": {
+                                "type": "integer"
+                            },
+                            "dateAdded": {
+                                "type": "string"
+                            },
+                            "location": {
+                                "type": "string"
+                            },
+                            "page": {},
+                            "text": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "kind": "Http",
+                "type": "Request"
+            }
+        }
+    }
+}
