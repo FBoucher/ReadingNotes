@@ -8,3 +8,10 @@ az group deployment create -g FrankStreamDev --template-file "azuredeploy.json" 
 
 
 
+
+## Create resources by Azure CLI
+
+az group create -n ReadingNotesDev -l eastus2
+
+
+
