@@ -1,0 +1,12 @@
+
+# This file contains a few Az CLI commands to test/ deploy the resources required for this project.
+
+# Deploying in Resource Group...
+az group create --name ReadingNotesV3 --location "EastUS"
+
+# ALWAYS validate before deploying
+az deployment group validate --resource-group ReadingNotesV3 --name 'ReadDevScript' --template-file 'deployment\deploy-preRead.json' --parameters 'deployment\deploy-preRead.params.json'
+
+# Deploying the resources
+az deployment group create --resource-group ReadingNotesV3 --name 'ReadDevScript' --template-file 'deployment\deploy-preRead.json' --parameters 'deployment\deploy-preRead.params.json'
+

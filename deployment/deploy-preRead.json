@@ -1,0 +1,173 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "SolutionName": {
+            "type": "string",
+            "defaultValue": "RNotesV3",
+            "metadata": {
+                "description": "Name that will be the base for all resources created in this template"
+            }
+        },
+        "GitHubURL": {
+            "type": "string",
+            "defaultValue": "https://github.com/FBoucher/ReadingNotes.git",
+            "metadata": {
+                "description": "The URL of GitHub (ending by .git)"
+            }
+        },
+        "GitHubBranch": {
+            "type": "string",
+            "defaultValue": "master",
+            "metadata": {
+                "description": "Name of the branch to use when deploying (Default = main)."
+            }
+        }
+    },
+    "functions": [],
+    "variables": {
+        "suffix": "[substring(toLower(uniqueString(resourceGroup().id, resourceGroup().location)),0,5)]",
+        "funcAppName": "[toLower(concat('fctool', parameters('SolutionName'), variables('suffix')))]",
+        "funcStorageName": "[concat(substring(variables('funcAppName'), 0, min(length(variables('funcAppName')),16)), 'stg')]",
+        "funcHhostingPlanName": "[concat(substring(variables('funcAppName'), 0, min(length(variables('funcAppName')),14)), 'plan')]",
+        "insightsAppName": "[concat(substring(variables('funcAppName'), 0, min(length(variables('funcAppName')),14)), 'meta')]",
+        "functionProjectFolder": "module-pre-reading/fcToolsReadingNotes"
+        
+    },
+    "resources": [
+        {
+            "name": "[variables('funcStorageName')]",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "tags": {
+                "displayName": "[variables('funcStorageName')]"
+            },
+            "location": "[resourceGroup().location]",
+            "kind": "StorageV2",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            }
+        },
+        {
+            "name": "[variables('funcHhostingPlanName')]",
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2018-11-01",
+            "location": "[resourceGroup().location]",
+            "kind": "",
+            "sku": {
+                "Tier": "Dynamic",
+                "Name": "Y1"
+            },
+            "tags": {
+                "displayName": "[variables('funcHhostingPlanName')]"
+            },
+            "properties": {
+                "name": "[variables('funcHhostingPlanName')]",
+                "computeMode": "Dynamic"
+            }
+        },
+        {
+            "apiVersion": "2015-05-01",
+            "name": "[variables('insightsAppName')]",
+            "type": "microsoft.insights/components",
+            "location": "[resourceGroup().location]",
+            "kind": "",
+            "properties": {
+                "Application_Type": "web",
+                "ApplicationId": "[variables('funcAppName')]",
+                "Request_Source": "rest"
+            }
+        },
+        {
+            "name": "[variables('funcAppName')]",
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "location": "[resourceGroup().location]",
+            "kind": "functionapp",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', variables('funcHhostingPlanName'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('funcStorageName'))]",
+                "[concat('microsoft.insights/components/', variables('insightsAppName'))]"
+            ],
+            "properties": {
+                "name": "[variables('funcAppName')]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('funcHhostingPlanName'))]",
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "AzureWebJobsDashboard",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('funcStorageName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('funcStorageName')),'2015-05-01-preview').key1)]"
+                        },
+                        {
+                            "name": "AzureWebJobsStorage",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('funcStorageName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('funcStorageName')),'2015-05-01-preview').key1)]"
+                        },
+                        {
+                            "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('funcStorageName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('funcStorageName')),'2015-05-01-preview').key1)]"
+                        },
+                        {
+                            "name": "WEBSITE_CONTENTSHARE",
+                            "value": "[variables('funcAppName')]"
+                        },
+                        {
+                            "name": "FUNCTIONS_EXTENSION_VERSION",
+                            "value": "~3"
+                        },
+                        {
+                            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                            "value": "[reference(resourceId('microsoft.insights/components/', variables('insightsAppName')), '2015-05-01').InstrumentationKey]"
+                        },
+                        {
+                            "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
+                            "value": "[reference(concat('microsoft.insights/components/', variables('insightsAppName')), '2015-05-01').ConnectionString]"
+                        },
+                        {
+                            "name": "FUNCTIONS_WORKER_RUNTIME",
+                            "value": "node"
+                        },
+                        {
+                            "name": "PROJECT",
+                            "value": "[variables('functionProjectFolder')]"
+                        }
+                    ]
+                }
+            },
+            "resources": [
+                {
+                    "apiVersion": "2018-11-01",
+                    "type":"sourcecontrols",
+                    "name": "web",
+                    "dependsOn": [
+                      "[resourceId('Microsoft.Web/sites/', variables('funcAppName'))]"
+                    ],
+                    "properties": {
+                        "repoUrl": "[parameters('GitHubURL')]",
+                        "branch": "[parameters('GitHubBranch')]",
+                        "publishRunbook": true,
+                        "IsManualIntegration": true
+                    }
+                }
+            ]
+        }
+    ],
+    "outputs": {
+        "suffix": {
+            "type": "string",
+            "value": "[variables('suffix')]"
+        },
+        "funcAppName": {
+            "type": "string",
+            "value": "[variables('funcAppName')]"
+        },
+        "funcStorageName": {
+            "type": "string",
+            "value": "[variables('funcStorageName')]"
+        },
+        "funcHhostingPlanName": {
+            "type": "string",
+            "value": "[variables('funcHhostingPlanName')]"
+        }
+    }
+}
